@@ -43,9 +43,10 @@ class ApiAuth {
   }
   
   export const apiAuth = new ApiAuth({
-    baseUrl: `https://auth.nomoreparties.co`,
+    baseUrl: `http://api.cerea62.nomoredomainsmonster.ru`,
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
   });
   

@@ -1,9 +1,9 @@
 const config = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-70',
+  baseUrl: 'http://api.cerea62.nomoredomainsmonster.ru',
   headers: {
-      authorization: '881e0966-bc42-4e12-bb34-8b207989d519',
-      'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
 }
 class Api {
   #handleResponse = res => {
