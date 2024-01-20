@@ -1,12 +1,12 @@
-// const config = {
-//   baseUrl: 'https://api.cerea62.nomoredomainsmonster.ru',
-// }
 const config = {
-  baseUrl: 'http://localhost:3001',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseUrl: 'https://api.cerea62.nomoredomainsmonster.ru',
 }
+// const config = {
+//   baseUrl: 'http://localhost:3001',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// }
 class Api {
   #handleResponse = res => {
     if (res.ok) {
