@@ -1,10 +1,10 @@
 const IS_URL = /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s!"#'()*+,:;<>@[\\\]`{|}~]*$/;
 const SECRET_KEY = 'super-strong-secret';
 const allowedCors = [
-  'https://cerea62.nomoredomainsmonster.ru/sign-in',
-  'http://cerea62.nomoredomainsmonster.ru/sign-in',
-  'http://api.cerea62.nomoredomainsmonster.ru/sign-in',
-  'https://api.cerea62.nomoredomainsmonster.ru/sign-in',
+  'https://cerea62.nomoredomainsmonster.ru',
+  'http://cerea62.nomoredomainsmonster.ru',
+  'http://api.cerea62.nomoredomainsmonster.ru',
+  'https://api.cerea62.nomoredomainsmonster.ru',
   'https://localhost:3000',
   'http://localhost:3000',
 ];
