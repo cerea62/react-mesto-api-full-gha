@@ -10,4 +10,12 @@ const allowedCors = [
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-module.exports = { IS_URL, SECRET_KEY, allowedCors, DEFAULT_ALLOWED_METHODS };
+const corsOptions = {
+  origin: [
+    'https://cerea62.nomoredomainsmonster.ru',
+    'http://localhost:3000',
+  ],
+  credentials: true,
+};
+
+module.exports = { IS_URL, SECRET_KEY, allowedCors, DEFAULT_ALLOWED_METHODS, corsOptions };
