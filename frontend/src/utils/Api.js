@@ -1,5 +1,8 @@
+// const config = {
+//   baseUrl: 'https://api.cerea62.nomoredomainsmonster.ru',
+// }
 const config = {
-  baseUrl: 'https://api.cerea62.nomoredomainsmonster.ru',
+  baseUrl: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -23,13 +26,19 @@ class Api {
         name: data.name,
         about: data.about
       }),
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      }
     })
       .then(this.#handleResponse)
   }
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      }
     })
       .then(this.#handleResponse)
   }
@@ -40,14 +49,20 @@ class Api {
       body: JSON.stringify({
         avatar: data.avatar
       }),
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      }
     })
       .then(this.#handleResponse)
   }
 
   getCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      },
     })
       .then(this.#handleResponse);
   }
@@ -55,7 +70,10 @@ class Api {
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -67,15 +85,22 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      },
     })
       .then(this.#handleResponse);
   }
   
   changeLike(cardId, isLiked) {
+    console.log(cardId, isLiked);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? 'DELETE' : 'PUT',
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-type': 'application/json'
+      },
     })
       .then(this.#handleResponse);
   }

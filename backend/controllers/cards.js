@@ -11,11 +11,7 @@ module.exports.createCard = async (req, res, next) => {
     const owner = req.user._id;
     const { name, link } = req.body;
     const card = await Card.create({ name, link, owner });
-    return res.status(CREATED).send({
-      name: card.name,
-      link: card.link,
-      owner: card.owner,
-    });
+    return res.status(CREATED).send(card);
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new ValidationError('Переданы некорректные данные'));
@@ -27,7 +23,7 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.getCards = async (req, res, next) => {
   try {
     const card = await Card.find({});
-    return res.status(OK).send({ card });
+    return res.status(OK).send(card);
   } catch (error) {
     return next(error);
   }
@@ -42,8 +38,8 @@ module.exports.delCardById = async (req, res, next) => {
     if (card.owner.toString() !== owner) {
       throw new ForbiddenError('Нет прав для удаления карточки');
     }
-    const deletedCard = await Card.deleteOne(CardId);
-    return res.status(OK).send({ deletedCard });
+    const deletedCard = await Card.deleteOne(card);
+    return res.status(OK).send(deletedCard);
   } catch (error) {
     return next(error);
   }
@@ -59,7 +55,7 @@ module.exports.likeCard = async (req, res, next) => {
       { new: true },
     )
       .orFail(() => new NotFoundError('Карточка с указанным id не найдена'));
-    return res.status(OK).send({ card });
+    return res.status(OK).send(card);
   } catch (error) {
     return next(error);
   }
@@ -74,7 +70,7 @@ module.exports.dislikeCard = async (req, res, next) => {
       { $pull: { likes: owner } },
       { new: true },
     ).orFail(() => new NotFoundError('Карточка с указанным id не найдена'));
-    return res.status(OK).send({ card });
+    return res.status(OK).send(card);
   } catch (error) {
     return next(error);
   }

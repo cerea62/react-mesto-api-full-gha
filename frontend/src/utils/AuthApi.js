@@ -42,10 +42,14 @@ class ApiAuth {
     }
   }
   
+  // export const apiAuth = new ApiAuth({
+  //   baseUrl: `https://api.cerea62.nomoredomainsmonster.ru`,
+  // });
   export const apiAuth = new ApiAuth({
-    baseUrl: `https://api.cerea62.nomoredomainsmonster.ru`,
+    baseUrl: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
   

@@ -85,7 +85,7 @@ module.exports.getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id)
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
-    return res.status(OK).send({ data: user });
+    return res.status(OK).send(user);
   } catch (error) {
     return next(error);
   }
@@ -100,10 +100,7 @@ module.exports.updateUser = async (req, res, next) => {
       { new: true, runValidators: true },
     )
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
-    return res.status(OK).send({
-      name: user.name,
-      about: user.about,
-    });
+    return res.status(OK).send(user);
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new ValidationError('Передан некорректный Id'));
@@ -121,7 +118,7 @@ module.exports.updateAvatar = async (req, res, next) => {
       { new: true, runValidators: true },
     )
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
-    return res.status(OK).send({ avatar: user.avatar });
+    return res.status(OK).send(user);
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new ValidationError('Передан некорректный Id'));
