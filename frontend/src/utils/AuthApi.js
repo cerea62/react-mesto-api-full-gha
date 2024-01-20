@@ -1,7 +1,9 @@
+
+import { baseUrl } from "./constants";
+
 class ApiAuth {
-    constructor({ baseUrl, headers }) {
+    constructor( baseUrl) {
       this.baseUrl = baseUrl;
-      this.headers = headers;
     }
   
     _checkResponse(res) {
@@ -22,7 +24,9 @@ class ApiAuth {
     signup({ email, password }) {
       return this._request(`${this.baseUrl}/signup`, {
         method: 'POST',
-        headers: this.headers,
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           password: password,
           email: email,
@@ -33,7 +37,9 @@ class ApiAuth {
     signin({ email, password }) {
       return this._request(`${this.baseUrl}/signin`, {
         method: 'POST',
-        headers: this.headers,
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           password: password,
           email: email,
@@ -42,14 +48,6 @@ class ApiAuth {
     }
   }
   
-  export const apiAuth = new ApiAuth({
-    baseUrl: `https://api.cerea62.nomoredomainsmonster.ru`,
-  });
-  // export const apiAuth = new ApiAuth({
-  //   baseUrl: 'http://localhost:3001',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // });
+  export const apiAuth = new ApiAuth(baseUrl);
 
   

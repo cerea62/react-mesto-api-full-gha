@@ -1,12 +1,7 @@
-const config = {
-  baseUrl: 'https://api.cerea62.nomoredomainsmonster.ru',
-}
-// const config = {
-//   baseUrl: 'http://localhost:3001',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// }
+
+
+import { baseUrl } from "./constants";
+
 class Api {
   #handleResponse = res => {
     if (res.ok) {
@@ -15,10 +10,10 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
   
-  constructor(config) {
-    this._baseUrl = config.baseUrl;
-    this._headers = config.headers;
+  constructor(baseUrl) {
+    this._baseUrl = baseUrl;
   }
+
   editUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -94,7 +89,6 @@ class Api {
   }
   
   changeLike(cardId, isLiked) {
-    console.log(cardId, isLiked);
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? 'DELETE' : 'PUT',
       headers: {
@@ -107,6 +101,6 @@ class Api {
 
 }
 
-const api = new Api(config);
+const api = new Api(baseUrl);
 
 export default api;

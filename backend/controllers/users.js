@@ -16,6 +16,7 @@ module.exports.createUser = async (req, res, next) => {
     const {
       name, about, avatar, email, password,
     } = req.body;
+    console.log(req.body);
     if (!password) {
       throw new ValidationError('Поле Password не заполнено');
     }
