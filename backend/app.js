@@ -8,7 +8,6 @@ const routerCard = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
-// const { corsPolicy } = require('./middlewares/corsPolicy');
 const { corsOptions } = require('./utils/constants');
 
 const NOT_FOUND = 404;
@@ -21,7 +20,6 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(corsPolicy);
 
 app.post('/signup', createUser);
 app.post('/signin', login);

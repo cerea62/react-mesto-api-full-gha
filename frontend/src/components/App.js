@@ -52,15 +52,17 @@ function App() {
     }, [loggedIn, navigate]);
 
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getCards()])
-            .then(([profileData, cardData]) => {
-                setCurrentUser(profileData);
-                setCards(cardData);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, [])
+        if (loggedIn === true) {
+            Promise.all([api.getUserInfo(), api.getCards()])
+                .then(([profileData, cardData]) => {
+                    setCurrentUser(profileData);
+                    setCards(cardData);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }, [loggedIn])
 
     const handleCardClick = function (card) {
         setSelectedCard(card);
