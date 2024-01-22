@@ -34,17 +34,15 @@ const ValidateDataCard = celebrate({
   }),
 }, { abortEarly: false });
 
-
 const ValidateUserData = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regexImageLink),
+    avatar: Joi.string().regex(IS_URL),
   }),
 }, { abortEarly: false });
-
 
 module.exports = {
   ValidateUserId,
