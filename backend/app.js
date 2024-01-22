@@ -12,6 +12,8 @@ const errorHandler = require('./middlewares/errorHandler');
 const { corsOptions } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const PORT = process.env;
+
 const NOT_FOUND = 404;
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useUnifiedTopology: true,
@@ -37,4 +39,4 @@ app.use('*', ((req, res) => {
   res.status(NOT_FOUND).send({ message: 'Запрашиваемый ресурс не найден' });
 }));
 app.use(errorHandler);
-app.listen(3001);
+app.listen(PORT);
