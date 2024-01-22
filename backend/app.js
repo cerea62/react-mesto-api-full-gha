@@ -12,6 +12,7 @@ const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 const { corsOptions } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const celebrates = require('./middlewares/celebrates');
 
 // const PORT = process.env;
 
@@ -30,8 +31,8 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.post('/signup', createUser);
-app.post('/signin', login);
+app.post('/signup', celebrates.ValidateUserData, createUser);
+app.post('/signin', celebrates.ValidateUserData, login);
 app.use(auth);
 app.use('/users', routerUser);
 app.use('/cards', routerCard);
