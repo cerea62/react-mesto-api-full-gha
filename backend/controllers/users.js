@@ -5,7 +5,6 @@ const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
 const AccessError = require('../errors/AccessError');
 const NotFoundError = require('../errors/NotFoundError');
-const { SECRET_KEY } = require('../utils/constants');
 
 const CREATED = 201;
 const OK = 200;
@@ -16,7 +15,6 @@ module.exports.createUser = async (req, res, next) => {
     const {
       name, about, avatar, email, password,
     } = req.body;
-    console.log(req.body);
     if (!password) {
       throw new ValidationError('Поле Password не заполнено');
     }
@@ -44,6 +42,7 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
   try {
+    const { NODE_ENV, JWT_SECRET } = process.env;
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password')
       .orFail(new AccessError('Неправильные имя пользователя или пароль'));
@@ -51,7 +50,11 @@ module.exports.login = async (req, res, next) => {
     if (!matched) {
       throw new AccessError('Неправильные имя пользователя или пароль');
     }
-    const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+      { expiresIn: '7d' }
+    );
     return res.status(OK).send({
       token,
     });
