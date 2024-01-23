@@ -31,10 +31,10 @@ module.exports.createUser = async (req, res, next) => {
     });
   } catch (error) {
     if (error.code === MONGO_DUPLICATE_ERROR) {
-      next(new ConflictError('Такой пользователь уже существует'));
+      return next(new ConflictError('Такой пользователь уже существует'));
     }
     if (error.name === 'ValidationError') {
-      next(new ValidationError('Переданы некорректные данные'));
+      return next(new ValidationError('Переданы некорректные данные'));
     }
     return next(error);
   }
@@ -79,7 +79,7 @@ module.exports.getUserById = async (req, res, next) => {
     return res.status(OK).send({ data: user });
   } catch (error) {
     if (error.name === 'CastError') {
-      next(new ValidationError('Передан некорректный Id'));
+      return next(new ValidationError('Передан некорректный Id'));
     }
     return next(error);
   }
@@ -107,7 +107,7 @@ module.exports.updateUser = async (req, res, next) => {
     return res.status(OK).send(user);
   } catch (error) {
     if (error.name === 'ValidationError') {
-      next(new ValidationError('Передан некорректный Id'));
+      return next(new ValidationError('Передан некорректный Id'));
     }
     return next(error);
   }
@@ -125,7 +125,7 @@ module.exports.updateAvatar = async (req, res, next) => {
     return res.status(OK).send(user);
   } catch (error) {
     if (error.name === 'ValidationError') {
-      next(new ValidationError('Передан некорректный Id'));
+      return next(new ValidationError('Передан некорректный Id'));
     }
     return next(error);
   }
