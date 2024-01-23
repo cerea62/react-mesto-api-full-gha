@@ -13,7 +13,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const { corsOptions } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const celebrates = require('./middlewares/celebrates');
-const { NotFoundError } = require('./errors/NotFoundError');
+const NotFoundError = require('./errors/NotFoundError');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useUnifiedTopology: true,
@@ -36,7 +36,6 @@ app.use(auth);
 app.use('/users', routerUser);
 app.use('/cards', routerCard);
 app.use((req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден')));
-
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
