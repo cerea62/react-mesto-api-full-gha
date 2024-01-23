@@ -30,8 +30,8 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.post('/signup', celebrates.ValidateUserData, createUser);
-app.post('/signin', celebrates.ValidateUserData, login);
+app.post('/signup', celebrates.validateUserData, createUser);
+app.post('/signin', celebrates.validateUserData, login);
 app.use(auth);
 app.use('/users', routerUser);
 app.use('/cards', routerCard);
