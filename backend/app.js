@@ -35,8 +35,7 @@ app.post('/signin', celebrates.ValidateUserData, login);
 app.use(auth);
 app.use('/users', routerUser);
 app.use('/cards', routerCard);
-app.use('*', ((req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден'))
-));
+app.use((req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден')));
 
 app.use(errorLogger);
 app.use(errors());
